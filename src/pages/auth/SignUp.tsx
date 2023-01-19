@@ -4,10 +4,12 @@ import { AuthResolver } from '@models';
 
 import { withAuth } from '@helper';
 import { SignUpInputs, AuthProps } from '@types';
+import { useSignUp } from '@hooks';
 
 interface Props extends AuthProps {}
 
-export const SignUpPage = withAuth(({ auth }: Props) => {
+export const SignUpPage = withAuth(({}: Props) => {
+  const { data, error, isError, isSuccess, mutate } = useSignUp();
   const {
     register,
     handleSubmit,
@@ -15,11 +17,8 @@ export const SignUpPage = withAuth(({ auth }: Props) => {
   } = useForm<SignUpInputs>({ resolver: AuthResolver.default.signUp });
 
   const onSubmit = async (input: SignUpInputs) => {
-    if (!auth) return;
-    const res = await auth.signUpAction(input);
-    console.log(res);
+    mutate(input);
   };
-
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>

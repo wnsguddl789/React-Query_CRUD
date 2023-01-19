@@ -6,6 +6,9 @@ const api = axios.create({ baseURL: 'http://localhost:8080', timeout: 1000 });
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 요청이 전달되기 전에 작업 수행
+    const token = window.localStorage.getItem('token')
+
+    
     return config;
   },
   (error: AxiosError): Promise<AxiosError> => {

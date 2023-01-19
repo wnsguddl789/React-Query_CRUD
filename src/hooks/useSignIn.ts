@@ -1,12 +1,16 @@
 import { SignInInputs } from '@types';
 
 import { useMutation } from '@tanstack/react-query';
-import { AuthModel } from '@models';
+import { useAuthStore } from '@models';
 
-export default function useSignU() {
-  const { data, error, isError, isSuccess, mutate } = useMutation((input: SignInInputs) => {
-    const auth = AuthModel.createInstance();
-    return auth.signInAction(input);
+export default function useSignUp() {
+  const authModel = useAuthStore((state) => state);
+
+  const { data, error, isError, isSuccess, mutate } = useMutation((input: SignInInputs) => authModel.signInAction(input), {
+    onSuccess: (data) => {
+      authModel.setLoggedIn();
+    },
+    onError: () => {},
   });
 
   return { data, error, isError, isSuccess, mutate };

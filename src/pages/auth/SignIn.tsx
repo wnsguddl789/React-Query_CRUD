@@ -8,7 +8,7 @@ import { SignInInputs, AuthProps } from '@types';
 
 interface Props extends AuthProps {}
 
-export const SignInPage = withAuth(({ auth }: Props) => {
+export const SignInPage = withAuth(({}: Props) => {
   const { data, error, isError, isSuccess, mutate } = useSignIn();
   const {
     register,
@@ -17,7 +17,6 @@ export const SignInPage = withAuth(({ auth }: Props) => {
   } = useForm<SignInInputs>({ resolver: AuthResolver.default.signIn });
 
   const onSubmit = async (input: SignInInputs) => {
-    if (!auth) return;
     try {
       const res = mutate(input);
 
