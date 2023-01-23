@@ -19,10 +19,11 @@
     "paths": {
       "@src/*": ["src/*"],
       "@types": ["src/types"],
-      "@config/*": ["src/config/*"],
+      "@components": ["src/components"],
+      "@config": ["src/config"],
       "@models": ["src/models"],
       "@pages": ["src/pages"],
-      "@helper": ["src/helper"],
+      "@hocs": ["src/hocs"],
       "@hooks": ["src/hooks"]
     }
   },

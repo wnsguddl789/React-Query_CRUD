@@ -1,15 +1,19 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from "axios";
 
-const api = axios.create({ baseURL: 'http://localhost:8080', timeout: 1000 });
+const isServer = !!window ? false : true;
+
+const api = axios.create({
+  baseURL: "http://localhost:8080",
+  timeout: 1000,
+  headers: {
+    Authorization: !isServer ? localStorage.getItem("token") : null,
+  },
+});
 
 // 요청 인터셉터 추가하기
-axios.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    // 요청이 전달되기 전에 작업 수행
-    const token = window.localStorage.getItem('token')
-
-    
-    return config;
+api.interceptors.request.use(
+  (req: AxiosRequestConfig) => {
+    return req;
   },
   (error: AxiosError): Promise<AxiosError> => {
     // 요청 오류가 있는 작업 수행
@@ -19,12 +23,9 @@ axios.interceptors.request.use(
 );
 
 // 응답 인터셉터 추가하기
-axios.interceptors.response.use(
+api.interceptors.response.use(
   (res: AxiosResponse) => {
-    // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
-    // 응답 데이터가 있는 작업 수행
-
-    return res.data;
+    return res.data.data;
   },
   (error: AxiosError): Promise<AxiosError> => {
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.

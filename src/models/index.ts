@@ -1,6 +1,6 @@
-import useAuthStore from './AuthModel';
-import useTodoStore from './TodoModel';
+import useAuthStore from "./AuthModel";
+import useTodoStore from "./TodoModel";
 
-import * as AuthResolver from './AuthSchema';
+export * from "./schemas";
 
-export { useAuthStore, useTodoStore, AuthResolver };
+export { useAuthStore, useTodoStore };

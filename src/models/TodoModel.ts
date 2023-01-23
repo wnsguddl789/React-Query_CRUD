@@ -1,36 +1,28 @@
-import { create } from 'zustand';
-import { Todo, SignUpResponseType, CreateTodoInputs, UpdateTodoInputs } from '@types';
-import { api } from '@config/api';
+import { create } from "zustand";
+import { Todo, CreateTodoInputs, UpdateTodoInputs } from "@types";
+import { api } from "@config";
 
 interface State {
   todoList: Todo[];
-  loadingTodoList: boolean;
-  loadingTodoDetail: boolean;
 
-  setLoadingTodoList: (bool: boolean) => void;
-  setLoadingTodoDetail: (bool: boolean) => void;
   setTodoList: (todoList: Todo[]) => void;
   sortTodoListOrderByUpdatedAt: (todo: Todo) => void;
 
-  fetchTodoList: (token: SignUpResponseType['token']) => Promise<void>;
-  fetchTodo: (id: Todo['id'], token: SignUpResponseType['token']) => Promise<void>;
-  cratedTodo: (input: CreateTodoInputs, token: SignUpResponseType['token']) => Promise<void>;
-  updateTodo: (input: UpdateTodoInputs, token: SignUpResponseType['token']) => Promise<void>;
-  destroyTodo: (id: Todo['id'], token: SignUpResponseType['token']) => Promise<void>;
+  fetchTodoList: () => Promise<Todo[]>;
+  fetchTodo: (id: Todo["id"]) => Promise<Todo>;
+  cratedTodo: (input: CreateTodoInputs) => Promise<void>;
+  updateTodo: (id: Todo["id"], input: UpdateTodoInputs) => Promise<void>;
+  destroyTodo: (id: Todo["id"]) => Promise<void>;
 }
 
 const useTodoStore = create<State>((set, get) => ({
   // state
   todoList: [],
-  loadingTodoList: false,
-  loadingTodoDetail: false,
 
   // getState
   getTodoList: () => get().todoList,
 
   // setState
-  setLoadingTodoList: (bool) => set(() => ({ loadingTodoList: bool })),
-  setLoadingTodoDetail: (bool) => set(() => ({ loadingTodoDetail: bool })),
   sortTodoListOrderByUpdatedAt: (todo) => {
     const { todoList, setTodoList } = get();
 
@@ -42,20 +34,20 @@ const useTodoStore = create<State>((set, get) => ({
   setTodoList: (todoList) => set(() => ({ todoList })),
 
   // actions
-  fetchTodoList: async (token) => {
-    return api.get('/todos', { headers: { Authorization: token } });
+  fetchTodoList: async () => {
+    return api.get("/todos");
   },
-  fetchTodo: async (id, token) => {
-    return api.get(`/todos/${id}`, { headers: { Authorization: token } });
+  fetchTodo: async (id) => {
+    return api.get(`/todos/${id}`);
   },
-  cratedTodo: async (input, token) => {
-    return api.post('/todos', input, { headers: { Authorization: token } });
+  cratedTodo: async (input) => {
+    return api.post("/todos", input);
   },
-  updateTodo: async (input, token) => {
-    return api.put('/todos', input, { headers: { Authorization: token } });
+  updateTodo: async (id, input) => {
+    return api.put(`/todos/${id}`, input);
   },
-  destroyTodo: async (id, token) => {
-    return api.delete(`/todos/${id}`, { headers: { Authorization: token } });
+  destroyTodo: async (id) => {
+    return api.delete(`/todos/${id}`);
   },
 }));
 
