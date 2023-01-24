@@ -1,26 +1,15 @@
 import { ComponentType } from "react";
-import { ModalPortal } from "@src/components";
+import { ModalPortal } from "@components";
 
-import { Inputs as InputUnionTypes } from "@src/types";
+import { InputUnionTypes, WithModalFormProps as HocProps } from "@src/types";
 
-import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
-
-interface withModalFormProps<Inputs extends InputUnionTypes> {
-  onClose: () => void;
-  register: UseFormRegister<Inputs>;
-  errors: Partial<FieldErrorsImpl<Inputs>>;
-  onSubmit: () => void;
-}
-
-const withModalForm = <
-  ComponentProps extends withModalFormProps<InputUnionTypes>
->(
-  Component: ComponentType<ComponentProps>
+const withModalForm = <ComponentProps extends InputUnionTypes>(
+  Component: ComponentType<HocProps<ComponentProps>>
 ) => {
-  return (props: withModalFormProps<InputUnionTypes>) => {
+  return (props: HocProps<ComponentProps>) => {
     return (
       <ModalPortal>
-        <Component {...(props as ComponentProps)} />
+        <Component {...props} />
       </ModalPortal>
     );
   };

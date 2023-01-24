@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Route,
   createBrowserRouter,
@@ -21,11 +19,7 @@ const Router = () => {
       </Route>
     )
   );
-  return (
-    <React.Fragment>
-      <RouterProvider router={router} />
-    </React.Fragment>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default Router;

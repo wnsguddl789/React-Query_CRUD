@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import { ModalPortal } from "@src/components";
+import { ModalPortal } from "@components";
 
 interface withModalFormProps {
   onClose: () => void;

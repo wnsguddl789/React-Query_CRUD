@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
-  onClose: () => void;
-  onSubmit: () => void;
+  onClose?: () => void;
+  onSubmit?: () => void;
 }
 
 const Modal = ({ children, onClose, onSubmit }: Props) => {

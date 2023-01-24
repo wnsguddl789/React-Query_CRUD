@@ -18,7 +18,7 @@ import { Todo, CreateTodoInputs, UpdateTodoInputs } from "@types";
 type ModalVisible = {
   CREATE: boolean;
   UPDATE: boolean;
-  DESTROY: boolean;
+  DELETE: boolean;
 };
 
 export const TodoListPage = withAuth(() => {
@@ -41,7 +41,7 @@ export const TodoListPage = withAuth(() => {
   const [visible, setVisible] = useState<ModalVisible>({
     CREATE: false,
     UPDATE: false,
-    DESTROY: false,
+    DELETE: false,
   });
 
   const handleModalVisible = (key: keyof ModalVisible, bool: boolean) => () => {
@@ -96,9 +96,9 @@ export const TodoListPage = withAuth(() => {
             onSubmit={onSubmitUpdateTodo}
           />
         )}
-        {visible.DESTROY && (
+        {visible.DELETE && (
           <ModalDestroyTodoForm
-            onClose={handleModalVisible("DESTROY", false)}
+            onClose={handleModalVisible("DELETE", false)}
             onSubmit={onSubmitDestroyTodo}
           />
         )}

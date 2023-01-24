@@ -1,4 +1,4 @@
-import useSignIn from "./useSignIn";
-import useSignUp from "./useSignIn";
+import useSignInMutation from "./useSignInMutation";
+import useSignUpMutation from "./useSignUpMutation";
 
-export { useSignIn, useSignUp };
+export { useSignInMutation, useSignUpMutation };

@@ -1,9 +1,6 @@
-import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
-import { CreateTodoInputs } from "@src/types";
+import { CreateTodoInputs, FormInstanceType } from "@src/types";
 
-export interface Props {
-  register: UseFormRegister<CreateTodoInputs>;
-  errors: Partial<FieldErrorsImpl<CreateTodoInputs>>;
+interface Props extends FormInstanceType<CreateTodoInputs> {
   onSubmit: () => void;
 }
 
