@@ -1,4 +1,4 @@
 import SignInInputs from './signIn';
-import SignUpInputs from './signUp';
+import { SignUpInputs, SignUpResponseType } from './signUp';
 
-export type { SignInInputs, SignUpInputs };
+export type { SignInInputs, SignUpInputs, SignUpResponseType };

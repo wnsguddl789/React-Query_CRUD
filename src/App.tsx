@@ -1,14 +1,12 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import { SignInPage, HomePage, SignUpPage } from '@pages';
+import React from "react";
+import { Router } from "./components";
 
 const App = () => {
-  const router = createBrowserRouter([
-    { element: <HomePage />, path: '/' },
-    { element: <SignInPage />, path: '/auth/signIn' },
-    { element: <SignUpPage />, path: '/auth/signUp' },
-  ]);
-  return <RouterProvider router={router} />;
+  return (
+    <React.Fragment>
+      <Router />
+    </React.Fragment>
+  );
 };
 
 export default App;
